@@ -20,6 +20,7 @@ public class ChartActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
+
         SportsChart mSpChart = findViewById(R.id.c);
         List<SportsChart.ChartEntity> mSpList = new ArrayList<>();
         for (int i = 0; i < 31; i++) {

@@ -26,6 +26,10 @@ public abstract class FilterAdapter<T> extends BaseQuickAdapter<T, BaseViewHolde
         super(layoutResId, data);
     }
 
+    @Override
+    public void onBindViewHolder(BaseViewHolder holder, int position) {
+        super.onBindViewHolder(holder, position);
+    }
 
     @Override
     public Filter getFilter() {

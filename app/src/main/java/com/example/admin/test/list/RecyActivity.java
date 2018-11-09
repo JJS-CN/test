@@ -1,11 +1,13 @@
 package com.example.admin.test.list;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -16,6 +18,7 @@ import com.example.admin.test.baseView.RulerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * 说明：
@@ -26,39 +29,59 @@ public class RecyActivity extends AppCompatActivity {
     RecyclerView mRv;
     BaseQuickAdapter mAdapter;
 
-    int createCount;
-
+    String ttttt;
+    List<String> strings;
+    int count;
     private static final String TAG = "RecyActivity";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recy);
+        findViewById(R.id.btn)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mAdapter.setNewData(strings);
+                    }
+                });
         mRv = findViewById(R.id.rv);
-        mRv.setLayoutManager(new PileUpLayoutManager());
-
-        final List<String> strings = new ArrayList<>();
+        mRv.setLayoutManager(new LinLayoutManager());
+        mRv.setNestedScrollingEnabled(false);
+        strings = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
-            if (i % 2 == 0) {
-                strings.add("测试" + i);
-            } else {
-                strings.add("测\n\n试" + i);
-            }
+            strings.add(i + "测试" + (i % 3 == 0 ? new Random().nextInt(100000) : i));
         }
         mAdapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.itemsss, strings) {
 
             @Override
-            protected void convert(BaseViewHolder helper, String item) {
-                helper.setText(R.id.tv_text, item);
+            protected void convert(final BaseViewHolder helper, final String item) {
+                //Log.e("update", helper.getLayoutPosition() + "==" + ttttt);
+                helper.setText(R.id.tv1, item);
+                helper.setBackgroundColor(R.id.tv1, item.equals(ttttt) ? Color.MAGENTA : Color.WHITE);
+                helper.itemView
+                        .setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ttttt = item;
+                                notifyDataSetChanged();
+                            }
+                        });
+            }
+
+            @Override
+            public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                count++;
+                Log.e("BaseRecyclerView", "onCreateViewHolder:"+count);
+                return super.onCreateViewHolder(parent, viewType);
             }
         };
         mRv.setAdapter(mAdapter);
-
         RulerView view = findViewById(R.id.v);
         view.setSelectListener(new RulerView.OnSelectListener() {
             @Override
             public void onSelect(int position) {
-                Log.e(TAG, "onSelect: " + position);
+                //Log.e(TAG, "onSelect: " + position);
             }
         });
 
