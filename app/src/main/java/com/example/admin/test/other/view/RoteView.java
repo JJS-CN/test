@@ -1,4 +1,4 @@
-package com.example.admin.test.Bezier;
+package com.example.admin.test.other.view;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -10,12 +10,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
-import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
@@ -31,38 +27,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 说明：
+ * 说明：单次旋转，旋转判断有点问题，卡顿
  * Created by jjs on 2018/9/1.
  */
 
-public class TimeRoteView extends View {
+public class RoteView extends View {
     private TextPaint mTextPaint;
     private Paint mPaint;
     private int mStartColor = Color.parseColor("#C7C7F9");//左侧文本颜色
     private int mEndColor = Color.parseColor("#ACC2FA");//底部文本颜色
     private int minX;
     private int maxX;
-    private String mTitleStr = "小时:分钟";
+    private String mTitleStr = "场景选择";
     private List<Float> rangeList;
     private ValueAnimator animator;
     private OnCheckedListener mCheckedListener;
-    private List<String> mTimeList;//时间数据
-    private List<String> mMileageList;//里程数据
+    private List<Integer> mDrawableList;//场景图片
+    private List<Integer> mDrawableList1;//数据图片
     private int mCheckType;
-    private int[] mTypeLeftXY;
-    private int[] mTypeRightXY;
 
-    public TimeRoteView(Context context) {
+    public RoteView(Context context) {
         super(context);
         init();
     }
 
-    public TimeRoteView(Context context, @Nullable AttributeSet attrs) {
+    public RoteView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public TimeRoteView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public RoteView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
@@ -87,40 +81,28 @@ public class TimeRoteView extends View {
         rangeList.add(12.86f);
         rangeList.add(64.29f);
 
-        //设置文本
-        mTimeList = new ArrayList<>();
-        for (int i = 0; i <= 24 * 4; i++) {
-            if (i == 0) {
-                mTimeList.add("00:00");
-                continue;
-            }
-            String hour = String.format("%0" + 2 + "d", 15 * i / 60);
-            String minute = String.format("%0" + 2 + "d", 15 * i % 60);
-            mTimeList.add(hour + ":" + minute);
-        }
-        mMileageList = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            mMileageList.add(i + ".00");
-        }
-
+        //设置图片
+        mDrawableList = new ArrayList<>();
+        mDrawableList.add(R.mipmap.ic_running_juzhong);
+        mDrawableList.add(R.mipmap.ic_running_paobu);
+        mDrawableList.add(R.mipmap.ic_running_lanqiu);
+        mDrawableList1 = new ArrayList<>();
+        mDrawableList1.add(R.mipmap.ic_running_km);
+        mDrawableList1.add(R.mipmap.ic_running_cal);
+        mDrawableList1.add(R.mipmap.ic_running_kmh);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
         drawBg(canvas);
         drawRound(canvas);
         drawCheck(canvas);
 
         drawPoint(canvas);
-        drawType(canvas);
-        mTextPaint.setColor(Color.parseColor("#6681FD"));
+
         mTextPaint.setTextSize(sp2px(13));
-        canvas.drawText("目标", getWidth() / 2, getHeight() + dp2px(10) - dp2px(232) + dp2px(13) - mTextPaint.getFontMetrics().ascent, mTextPaint);
-        //中间文本
-        mTextPaint.setColor(Color.parseColor("#606060"));
-        canvas.drawText(mTitleStr, getWidth() / 2, getHeight() - dp2px(20 + 48 + 16) - mTextPaint.getFontMetrics().bottom, mTextPaint);
+        canvas.drawText(mTitleStr, getWidth() / 2, getHeight() + dp2px(10) - dp2px(232) + dp2px(13) - mTextPaint.getFontMetrics().ascent, mTextPaint);
     }
 
     private void drawBg(Canvas canvas) {
@@ -128,17 +110,22 @@ public class TimeRoteView extends View {
         paint.setColor(Color.WHITE);
         paint.setShadowLayer(dp2px(6), 0, -5, 0x30cccccc);
         canvas.drawCircle(getWidth() / 2, getHeight() + dp2px(10), dp2px(232), paint);
-
     }
 
     private void drawCheck(Canvas canvas) {
-        Paint paint = getPaint();
-        paint.setShader(new LinearGradient(getWidth() / 2 - dp2px(24), 0, getWidth() / 2 + dp2px(24), 0, mStartColor, mEndColor, Shader.TileMode.CLAMP));
-        paint.setShadowLayer(dp2px(3), dp2px(-1), dp2px(3), 0x90666666);
-        canvas.drawCircle(getWidth() / 2, getHeight() - dp2px(20 + 48 / 2), dp2px(48 / 2), paint);
-        Bitmap dui = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_running_dui);
-        paint = getPaint();
-        canvas.drawBitmap(dui, getWidth() / 2 - dui.getWidth() / 2, getHeight() - dp2px(44) - dui.getHeight() / 2, paint);
+        if (mCheckType == 0) {
+            Paint paint = getPaint();
+            paint.setShader(new LinearGradient(getWidth() / 2 - dp2px(24), 0, getWidth() / 2 + dp2px(24), 0, mStartColor, mEndColor, Shader.TileMode.CLAMP));
+            paint.setShadowLayer(dp2px(3), dp2px(-1), dp2px(3), 0x90666666);
+            canvas.drawCircle(getWidth() / 2, getHeight() - dp2px(20 + 48 / 2), dp2px(48 / 2), paint);
+            Bitmap dui = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_running_dui);
+            paint = getPaint();
+            canvas.drawBitmap(dui, getWidth() / 2 - dui.getWidth() / 2, getHeight() - dp2px(44) - dui.getHeight() / 2, paint);
+        } else {
+            Paint paint = getPaint();
+            Bitmap up = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_running_rectangle);
+            canvas.drawBitmap(up, getWidth() / 2 - up.getWidth() / 2, getHeight() - dp2px(66), paint);
+        }
     }
 
     private RectF mRectF;
@@ -151,95 +138,57 @@ public class TimeRoteView extends View {
         paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setShader(new LinearGradient(mRectF.left, 0, mRectF.right, 0, mStartColor, mEndColor, Shader.TileMode.CLAMP));
         canvas.drawArc(mRectF, 200, 140, false, paint);
-
-        GradientDrawable drawable = new GradientDrawable();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            drawable.setColors(new int[]{mStartColor, mEndColor});
-            drawable.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);
-        } else {
-            drawable.setColor(mEndColor);
-        }
-        Rect rect = new Rect((int) (getWidth() / 2 - dp2px(35)), (int) (getPoiXY(3)[1] - dp2px(18)), (int) (getWidth() / 2 + dp2px(35)), (int) (getPoiXY(3)[1] + dp2px(18)));
-        drawable.setBounds(rect);
-        drawable.setCornerRadius(dp2px(35));
-        drawable.setGradientType(GradientDrawable.LINEAR_GRADIENT);
-        drawable.draw(canvas);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            drawable.setColors(new int[]{Color.WHITE, Color.WHITE});
-            drawable.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);
-        } else {
-            drawable.setColor(Color.WHITE);
-        }
-        int width = (int) dp2px(2);
-        rect.left = rect.left + width;
-        rect.right = rect.right - width;
-        rect.top = rect.top + width;
-        rect.bottom = rect.bottom - width;
-        drawable.setBounds(rect);
-        drawable.draw(canvas);
     }
 
     float degree;
 
     private void drawPoint(Canvas canvas) {
-        mTextPaint.setTextSize(sp2px(15));
-        mTextPaint.setFakeBoldText(true);
+        mTextPaint.setTextSize(sp2px(10));
         Paint paint = getPaint();
-        paint.setColor(Color.GRAY);
+        paint.setColor(Color.WHITE);
         canvas.save();
 
         canvas.rotate(degree, (mRectF.left + mRectF.right) / 2, (mRectF.top + mRectF.bottom) / 2);
 
         for (int i = 0; i < 7; i++) {
-            String value = getValue(i);
-
-            if (degree == 0 && i == 3) {
-                mTextPaint.setColor(Color.parseColor("#02072E"));
+            int[] poi = getPoiXY(i);
+            int count = canvas.save();
+            canvas.rotate(-degree, poi[0], poi[1]);
+            paint.setShadowLayer(dp2px(5), dp2px(-1), dp2px(3), 0x30666666);
+            canvas.drawCircle(poi[0], poi[1], dp2px(33), paint);
+            int drawId = getDrawableId(i);
+            Bitmap bmp = BitmapFactory.decodeResource(getResources(), drawId);
+            paint.setShadowLayer(0, 0, 0, 0);
+            if (mCheckType == 0) {
+                canvas.drawBitmap(bmp, poi[0] - bmp.getWidth() / 2, poi[1] - bmp.getHeight() / 2, paint);
             } else {
-                mTextPaint.setColor(Color.parseColor("#9B9B9B"));
+                canvas.drawBitmap(bmp, poi[0] - bmp.getWidth() / 2, poi[1] - dp2px(25), paint);
+                String text = drawId == R.mipmap.ic_running_km ? "距离" : drawId == R.mipmap.ic_running_cal ? "卡路里" : drawId == R.mipmap.ic_running_kmh ? "实时速度" : "";
+                canvas.drawText(text, poi[0], poi[1] - dp2px(25) + bmp.getHeight() - mTextPaint.getFontMetrics().ascent, mTextPaint);
             }
-            Path path = new Path();
-            path.addArc(mRectF, rangeList.get(i) - 10, 20);
-
-            Paint.FontMetrics fontMetrics = mTextPaint.getFontMetrics();
-            canvas.drawTextOnPath(value, path, 0, (fontMetrics.bottom - fontMetrics.ascent) / 4, mTextPaint);
+            canvas.restoreToCount(count);
         }
         canvas.restore();
-        mTextPaint.setFakeBoldText(false);
-    }
-
-    private void drawType(Canvas canvas) {
-        Paint paint = getPaint();
-        paint.setShader(new LinearGradient(0, 0, 0, 0, Color.GRAY, Color.GRAY, Shader.TileMode.CLAMP));
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), mCheckType == 0 ? R.mipmap.ic_running_time_check : R.mipmap.ic_running_time_nomal);
-        canvas.drawBitmap(bitmap, getWidth() / 2 - dp2px(50) - bitmap.getWidth(), getPoiXY(3)[1] - dp2px(30) - bitmap.getHeight(), paint);
-        mTextPaint.setTextSize(sp2px(12));
-        mTextPaint.setColor(mCheckType == 0 ? mStartColor : Color.parseColor("#CECECE"));
-        canvas.drawText("时间", getWidth() / 2 - dp2px(50) - bitmap.getWidth() / 2, getPoiXY(3)[1] - dp2px(27) - mTextPaint.getFontMetrics().ascent, mTextPaint);
-        mTypeLeftXY = new int[]{(int) (getWidth() / 2 - dp2px(50) - bitmap.getWidth() / 2), (int) (getPoiXY(3)[1] - dp2px(27))};
-
-        bitmap = BitmapFactory.decodeResource(getResources(), mCheckType == 0 ? R.mipmap.ic_running_licheng_nomal : R.mipmap.ic_running_licheng_check);
-        canvas.drawBitmap(bitmap, getWidth() / 2 + dp2px(50), getPoiXY(3)[1] - dp2px(30) - bitmap.getHeight(), mPaint);
-        mTextPaint.setColor(mCheckType == 0 ? Color.parseColor("#CECECE") : mStartColor);
-        canvas.drawText("里程", getWidth() / 2 + dp2px(50) + bitmap.getWidth() / 2, getPoiXY(3)[1] - dp2px(27) - mTextPaint.getFontMetrics().ascent, mTextPaint);
-        mTypeRightXY = new int[]{(int) (getWidth() / 2 + dp2px(50) + bitmap.getWidth() / 2), (int) (getPoiXY(3)[1] - dp2px(27))};
 
     }
 
-    private String getValue(int position) {
+    private int getDrawableId(int position) {
 
-        int posi = (position + drawableRote - 2);
-        if (posi < 0 || posi >= (mCheckType == 0 ? mTimeList.size() : mMileageList.size())) {
-            return "";
-        }
+        int posi = Math.abs((position + drawableRote - 2)) % 3;
 
-        return mCheckType == 0 ? mTimeList.get(posi) : mMileageList.get(posi);
+        return mCheckType == 0 ? mDrawableList.get(posi) : mDrawableList1.get(posi);
     }
 
-    // 0为时间，1为里程
+   /* public void setTitleStr(@Nullable String title) {
+        //设置标题文本，不可空
+        this.mTitleStr = title;
+        invalidate();
+    }*/
+
+
+    // 0为圆形，1为三角形
     public void setCheckType(int type) {
-        this.drawableRote = 0;
-        this.mTitleStr = type == 0 ? "小时:分钟" : "运动距离 (公里)";
+        this.mTitleStr = type == 0 ? "场景选择" : "切换当前数据";
         this.mCheckType = type;
         invalidate();
     }
@@ -272,7 +221,7 @@ public class TimeRoteView extends View {
 
     private int[] downXY = new int[]{0, 0};
     private int[] moveXY = new int[]{0, 0};
-    private int drawableRote = 0;//图片偏移量 -1 +1 有逻辑错误，增加初始偏移量
+    private int drawableRote=30000;//图片偏移量 -1 +1 有逻辑错误，进行
     private float hasRote = 0;
 
     @Override
@@ -288,14 +237,8 @@ public class TimeRoteView extends View {
                 break;
             case MotionEvent.ACTION_MOVE:
                 moveXY = new int[]{x, y};
-                float dd = (moveXY[0] - downXY[0]) / (mRectF.right - mRectF.left) * 140;
-                dd = Math.min(Math.max(dd, -51.43f), 51.43f);
-                //左右滑动限制
-                if (drawableRote == 0 - 1 && dd > 0 || drawableRote >= (mCheckType == 0 ? mTimeList.size() : mMileageList.size()) - 1 - 2 + 1 && dd < 0) {
-                    downXY = moveXY;
-                    return true;
-                }
-                degree = dd;
+                degree = (moveXY[0] - downXY[0]) / (mRectF.right - mRectF.left) * 140;
+                degree = Math.min(Math.max(degree, -51.43f), 51.43f);
                 invalidate();
                 break;
             case MotionEvent.ACTION_UP:
@@ -334,7 +277,7 @@ public class TimeRoteView extends View {
                 }
                 if (Math.abs(downXY[0] - event.getX()) < 50 && Math.abs(downXY[1] - event.getY()) < 50) {
                     //视为点击事件
-                    if (hasRote <= 3) {
+                    if (hasRote <= 5) {
                         //
                         for (int i = 0; i < rangeList.size(); i++) {
                             int[] poi = getPoiXY(i);
@@ -350,19 +293,6 @@ public class TimeRoteView extends View {
                             } else if (Math.abs(getWidth() / 2 - event.getX()) < dp2px(33) && Math.abs(getHeight() - dp2px(51) - event.getY()) < dp2px(18)) {
                                 //略微放大了范围
                                 mCheckedListener.onCheck(RunType.Button);
-                            }
-                        }
-                        if (Math.abs(mTypeLeftXY[0] - event.getX()) < dp2px(12) && Math.abs(mTypeLeftXY[1] - event.getY()) < dp2px(24)) {
-                            if (mCheckType != 0) {
-                                mCheckType = 0;
-                                drawableRote = 0;
-                                mTitleStr = "小时:分钟";
-                            }
-                        } else if (Math.abs(mTypeRightXY[0] - event.getX()) < dp2px(12) && Math.abs(mTypeRightXY[1] - event.getY()) < dp2px(24)) {
-                            if (mCheckType == 0) {
-                                mCheckType = 1;
-                                drawableRote = 0;
-                                mTitleStr = "运动距离 (公里)";
                             }
                         }
                     }

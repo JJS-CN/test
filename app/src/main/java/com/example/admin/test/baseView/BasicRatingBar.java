@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 说明：
+ * 说明：自定义星星
  * Created by jjs on 2018/8/25.
  */
 

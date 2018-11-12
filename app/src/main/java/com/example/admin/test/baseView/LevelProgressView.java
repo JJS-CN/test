@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 说明：荣誉等级
+ * 说明：荣誉等级---进度条的绘制
  * Created by jjs on 2018/8/24.
  */
 

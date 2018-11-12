@@ -38,4 +38,6 @@ dependencies {
     // Optional, if you use support library fragments:
     debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.1'
     api 'com.squareup.retrofit2:converter-gson:2.3.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    api 'com.jakewharton:butterknife:8.4.0'
 }

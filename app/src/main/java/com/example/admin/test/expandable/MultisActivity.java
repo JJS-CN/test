@@ -1,6 +1,5 @@
 package com.example.admin.test.expandable;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,19 +7,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.admin.test.BaseActivity;
 import com.example.admin.test.R;
 import com.google.gson.Gson;
 
 /**
- * 说明：
+ * 说明：类似QQ的分组功能
  * Created by jjs on 2018/11/9.
  */
 
-public class MultisActivity extends Activity {
+public class MultisActivity extends BaseActivity {
     RecyclerView mRv;
     MultisAdapter mAdapter;
 
-    String test = "{\"code\":\"000000\",\"message\":\"\\u6210\\u529f\",\"result\":[{\"id\":\"100211\",\"user_name\":\"\\u963f\\u98de\",\"avatar\":\"http:\\/\\/thirdwx.qlogo.cn\\/mmopen\\/vi_32\\/Q0j4TwGTfTJEMrRUnBSh2cic3BwiaZ3wiab0qPOLjTiaRcJrCwWCVN7pkiaqgKO4kFk5QXj6EplpDwtEZvZiaH2icDr3w\\/132\",\"children\":[{\"id\":\"100212\",\"user_name\":\"15625732879\",\"avatar\":null,\"children\":[{\"id\":\"100208\",\"user_name\":\"18575518402\",\"avatar\":null}]}]},{\"id\":\"100213\",\"user_name\":\"13192051428\",\"avatar\":null,\"children\":[]}]}";
+    String test = "{\"code\":\"000000\",\"message\":\"\\u6210\\u529f\",\"result\":[{\"id\":\"100211\",\"user_name\":\"\\u963f\\u98de\",\"avatar\":\"http:\\/\\/thirdwx.qlogo.cn\\/mmopen\\/vi_32\\/Q0j4TwGTfTJEMrRUnBSh2cic3BwiaZ3wiab0qPOLjTiaRcJrCwWCVN7pkiaqgKO4kFk5QXj6EplpDwtEZvZiaH2icDr3w\\/132\",\"children\":[{\"id\":\"100212\",\"user_name\":\"15625732879\",\"avatar\":null,\"children\":[{\"id\":\"100208\",\"user_name\":\"18575518402\",\"avatar\":null}]}]},{\"id\":\"100211\",\"user_name\":\"\\u963f\\u98de\",\"avatar\":\"http:\\/\\/thirdwx.qlogo.cn\\/mmopen\\/vi_32\\/Q0j4TwGTfTJEMrRUnBSh2cic3BwiaZ3wiab0qPOLjTiaRcJrCwWCVN7pkiaqgKO4kFk5QXj6EplpDwtEZvZiaH2icDr3w\\/132\",\"children\":[{\"id\":\"100212\",\"user_name\":\"15625732879\",\"avatar\":null,\"children\":[{\"id\":\"100208\",\"user_name\":\"18575518402\",\"avatar\":null}]}]},{\"id\":\"100211\",\"user_name\":\"\\u963f\\u98de\",\"avatar\":\"http:\\/\\/thirdwx.qlogo.cn\\/mmopen\\/vi_32\\/Q0j4TwGTfTJEMrRUnBSh2cic3BwiaZ3wiab0qPOLjTiaRcJrCwWCVN7pkiaqgKO4kFk5QXj6EplpDwtEZvZiaH2icDr3w\\/132\",\"children\":[{\"id\":\"100212\",\"user_name\":\"15625732879\",\"avatar\":null,\"children\":[{\"id\":\"100208\",\"user_name\":\"18575518402\",\"avatar\":null}]}]}]}";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

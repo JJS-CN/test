@@ -1,36 +1,23 @@
-package com.example.admin.test.Bezier;
+package com.example.admin.test.other;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.SeekBar;
 
+import com.example.admin.test.BaseActivity;
 import com.example.admin.test.R;
+import com.example.admin.test.other.view.FootView;
 
 /**
  * 说明：
  * Created by jjs on 2018/8/31.
  */
 
-public class BezierActivity extends AppCompatActivity {
+public class OtherActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bezier);
-        TimeRoteView roteView = findViewById(R.id.v);
-        roteView.setCheckType(0);
-        roteView.setOnCheckedListener(new TimeRoteView.OnCheckedListener() {
-            @Override
-            public void onSelect(TimeRoteView.RunType runType) {
-                Log.e("select", runType == TimeRoteView.RunType.Run ? "跑步" : runType == TimeRoteView.RunType.Basketball ? "篮球" : runType == TimeRoteView.RunType.Weightlifting ? "举重" : "按钮");
-            }
-
-            @Override
-            public void onCheck(TimeRoteView.RunType runType) {
-                Log.e("check", runType == TimeRoteView.RunType.Run ? "跑步" : runType == TimeRoteView.RunType.Basketball ? "篮球" : runType == TimeRoteView.RunType.Weightlifting ? "举重" : "按钮");
-            }
-        });
 
         final FootView view = findViewById(R.id.foot);
 

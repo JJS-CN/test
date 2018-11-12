@@ -1,9 +1,8 @@
-package com.example.admin.test.list;
+package com.example.admin.test.recyclerview;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.admin.test.BaseActivity;
 import com.example.admin.test.R;
 import com.example.admin.test.baseView.CashBackView;
 import com.example.admin.test.baseView.LevelProgressView;
@@ -25,7 +25,7 @@ import java.util.Random;
  * Created by jjs on 2018/8/16.
  */
 
-public class RecyActivity extends AppCompatActivity {
+public class RecyActivity extends BaseActivity {
     RecyclerView mRv;
     BaseQuickAdapter mAdapter;
 

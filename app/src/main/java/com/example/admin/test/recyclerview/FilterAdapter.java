@@ -1,4 +1,4 @@
-package com.example.admin.test.list;
+package com.example.admin.test.recyclerview;
 
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -13,7 +13,8 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * 说明：会获取当前数据保存作为原始数据，所以一开始应设定最完整数据
+ * 说明：数据筛选adapter，适用于本地数据的筛选，如当前城市、
+ * 会获取当前数据保存作为原始数据，所以一开始应设定最完整数据
  * Created by jjs on 2018/7/5.
  */
 

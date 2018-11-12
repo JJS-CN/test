@@ -1,4 +1,4 @@
-package com.example.admin.test.Bezier;
+package com.example.admin.test.other.view;
 
 import android.content.Context;
 import android.graphics.Canvas;

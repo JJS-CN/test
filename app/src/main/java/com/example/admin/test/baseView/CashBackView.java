@@ -19,7 +19,7 @@ import android.view.WindowManager;
 
 
 /**
- * 说明：
+ * 说明：手环的步数返现view，对line的位置计算
  * Created by jjs on 2018/8/29.
  */
 

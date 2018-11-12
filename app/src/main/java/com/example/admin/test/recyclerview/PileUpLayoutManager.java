@@ -1,4 +1,4 @@
-package com.example.admin.test.list;
+package com.example.admin.test.recyclerview;
 
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;

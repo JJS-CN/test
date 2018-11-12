@@ -1,4 +1,4 @@
-package com.example.admin.test.list;
+package com.example.admin.test.recyclerview;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 说明：
+ * 说明：流式布局。根据item的宽度，考虑是否换行。
  * Created by jjs on 2018/10/18.
  */
 
-public class FlowLayoutManager  extends RecyclerView.LayoutManager {
+public class FlowLayoutManager extends RecyclerView.LayoutManager {
 
     private static final String TAG = FlowLayoutManager.class.getSimpleName();
     final FlowLayoutManager self = this;

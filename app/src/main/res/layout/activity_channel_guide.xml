@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:background="#40000000"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/ll_top"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#70000000"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_left"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:src="@mipmap/ic_launcher"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="类似Excel布局"
+            android:textColor="#FFFFFF"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WEDNEDAY 15 AUG"
+        android:textColor="#FFFFFF"
+        app:layout_constraintTop_toBottomOf="@id/ll_top"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_week"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:overScrollMode="never"
+        android:paddingLeft="100dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_day">
+
+    </android.support.v7.widget.RecyclerView>
+    <!--toast开始-->
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_toast"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="#90000000"
+        android:padding="10dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp"/>
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:background="#80a1a1a1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/tv_time"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="07 GMA"
+            android:textColor="#FFFFFF"
+            android:textSize="17sp"
+            app:layout_constraintLeft_toRightOf="@id/line"/>
+
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="info"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp"
+            app:layout_constraintLeft_toLeftOf="@id/tv_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_name"/>
+
+        <TextView
+            android:id="@+id/tv_details"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="10dp"
+            android:ellipsize="end"
+            android:gravity="start"
+            android:maxLines="2"
+            android:text="121232safsfasvzxvczxzcsafasdfafs121232safsfasvzxvczxzcsafasdfafs121232safsfasvzxvczxzcsafasdfafs121232safsfasvzxvczxzcsafasdfafs121232safsfasvzxvczxzcsafasdfafs"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/tv_name"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+    <!--toast结束-->
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/cl_toast"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_week"
+        >
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/iv_arrow_up"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/guide_item_height"
+                android:background="#00000000"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_launcher"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_left"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:overScrollMode="never">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <ImageButton
+                android:id="@+id/iv_arrow_down"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/guide_item_height"
+                android:background="#00000000"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_launcher"/>
+        </LinearLayout>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_top"
+                    android:layout_width="2397dp"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never">
+
+
+                </android.support.v7.widget.RecyclerView>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_info"
+                    android:layout_width="2400dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/guide_item_height"
+                    android:overScrollMode="never">
+
+                </android.support.v7.widget.RecyclerView>
+
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
