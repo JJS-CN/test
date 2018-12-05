@@ -13,9 +13,11 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.admin.test.camera.CameraActivity;
 import com.example.admin.test.chart.ChartActivity;
 import com.example.admin.test.expandable.MultisActivity;
+import com.example.admin.test.gradient.QRGradientActivity;
 import com.example.admin.test.other.OtherActivity;
-import com.example.admin.test.recyclerview.ChannelGuideActivity;
+import com.example.admin.test.recyclerview.excel.ChannelGuideActivity;
 import com.example.admin.test.recyclerview.RecyActivity;
+import com.example.admin.test.recyclerview.other.ListActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +47,8 @@ public class LauncherActivity extends AppCompatActivity {
         mTabList.add("类似Excel组合");
         mTabList.add("Camera拍照录像功能");
         mTabList.add("Recycler高级功能");
+        mTabList.add("自定义LayoutManager");
+        mTabList.add("着色器/渲染器");
         mTabList.add("其他");
         mAdapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_label, mTabList) {
 
@@ -74,6 +78,12 @@ public class LauncherActivity extends AppCompatActivity {
                                         break;
                                     case "Camera拍照录像功能":
                                         toGo(CameraActivity.class);
+                                        break;
+                                    case "Recycler高级功能":
+                                        toGo(ListActivity.class);
+                                        break;
+                                    case "着色器/渲染器":
+                                        toGo(QRGradientActivity.class);
                                         break;
                                     case "其他":
                                         toGo(OtherActivity.class);

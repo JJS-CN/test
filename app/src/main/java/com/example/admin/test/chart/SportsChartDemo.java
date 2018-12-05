@@ -36,44 +36,44 @@ import java.util.List;
  * Created by jjs on 2018/8/31.
  */
 
-public class SportsChart extends View {
+public class SportsChartDemo extends View {
     private float minHeight = 165;//dp
-    private TextPaint mTextPaint;
-    private Paint mPaint;
-    private Paint mPolyPaint;
-    private Scroller scroller;
-    private VelocityTracker velocityTracker;
+    private TextPaint mTextPaint;//文本画笔
+    private Paint mPaint;//边线画笔
+    private Paint mPolyPaint;//主要折线画笔
+    private Scroller scroller;//滚动操作类
+    private VelocityTracker velocityTracker;//flying效果辅助类
     private int mStartColor = Color.parseColor("#C7C7F9");//左侧文本颜色
     private int mEndColor = Color.parseColor("#ACC2FA");//底部文本颜色
     private int mCenterColor = Color.parseColor("#50C7C7F9");//居中透明色
     private int mPoiColor = Color.parseColor("#81ADFF");//poi颜色
     private int mLeftMoveing = 0;//左移动偏移
-    private int mMarkerDrawableId = R.mipmap.ic_chart_message;
+    private int mMarkerDrawableId = R.mipmap.ic_chart_message;//marker点的图片
     private int[] mMarkerSize;//marker宽高
-    private Rect mChartRect = new Rect();
-    private List<ChartEntity> mEntities = new ArrayList<>();//内容
-    private List<String> mLeftList = new ArrayList<>();
+    private Rect mChartRect = new Rect();//滚动区域
+    private List<ChartEntity> mEntities = new ArrayList<>();//点内容
+    private List<String> mLeftList = new ArrayList<>();//左侧文本
     private int mAxisYspace;//Y轴间距
     private int mAxisXspace;//X轴间距
     private int mAxisYvalue;//Y轴的数据计算
     private GradientDrawable mXLineDrawable = new GradientDrawable();
-    private List<int[]> mPoiList = new ArrayList<>();
+    private List<int[]> mPoiList = new ArrayList<>();//处理之后的点xy集合
     private OnLeftTextChangeListener mListener;
     private int[] mClickXY = new int[]{0, 0};//按下的xy轴位置
     private Bitmap mMarker;
     private int kmWidth;//km 的字体宽度
 
-    public SportsChart(Context context) {
+    public SportsChartDemo(Context context) {
         super(context);
         init();
     }
 
-    public SportsChart(Context context, @Nullable AttributeSet attrs) {
+    public SportsChartDemo(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public SportsChart(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public SportsChartDemo(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
@@ -85,6 +85,7 @@ public class SportsChart extends View {
         mTextPaint.setTextSize(sp2px(10));
         mTextPaint.setStrokeWidth(2);
         kmWidth = (int) mTextPaint.measureText("km");
+
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setStrokeWidth(2);
@@ -299,7 +300,7 @@ public class SportsChart extends View {
         super.onLayout(changed, l, t, r, b);
         if (changed) {
             int textHeight = (int) (Math.abs(mTextPaint.getFontMetrics().ascent) + mTextPaint.getFontMetrics().bottom + dp2px(8));//下面padding，计算偏移量
-            mAxisYspace = (int) ((getHeight() - textHeight - mMarkerSize[1]) / 4f);//Y轴间距
+            mAxisYspace = (int) ((getHeight() - textHeight - mMarkerSize[1]) / 4f);//Y轴间距-预留顶部maker显示区域，剩下区域等分4份
             mAxisXspace = (int) (mAxisYspace * 0.9f);//X轴间距
 
             mChartRect.bottom = getHeight() - textHeight;//底部线，X轴初始线
@@ -420,16 +421,6 @@ public class SportsChart extends View {
     //供外部重写,left文本内容
     public interface OnLeftTextChangeListener {
         String onChange(int value);
-    }
-
-    public void setLeftMoveing(final int position) {
-        post(new Runnable() {
-            @Override
-            public void run() {
-                mLeftMoveing = mAxisXspace * position;
-                invalidate();
-            }
-        });
     }
 
 }

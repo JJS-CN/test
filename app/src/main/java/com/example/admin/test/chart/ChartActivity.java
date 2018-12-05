@@ -33,6 +33,7 @@ public class ChartActivity extends BaseActivity {
             }
         });
         mSpChart.setEntities(mSpList);
+        mSpChart.setLeftMoveing(20);
 
         RunBarChart mBarChart = findViewById(R.id.bar);
         List<RunBarChart.ChartEntity> mbarList = new ArrayList<>();

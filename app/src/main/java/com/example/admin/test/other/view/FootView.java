@@ -7,8 +7,8 @@ import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
+import android.view.View;
 
 import com.example.admin.test.R;
 import com.example.admin.test.auto.SvgPathParser;
@@ -23,7 +23,7 @@ import java.util.List;
  * Created by jjs on 2018/8/31.
  */
 
-public class FootView extends AppCompatImageView {
+public class FootView extends View {
     private float mPressureStepSize = 10f;//压力阶层，最小值为0，最大值为size*colors.size()
     private float mScStepSize = 0.2f;//缩放系数层级，每多一层最大轮廓会减小0.2f
     private float mScStick = 0.6f;//缩放粘性系数，总数值增大时，最大轮廓会相应放大，最大值为mScStepSize数值,有效区间为0f-1f
@@ -69,7 +69,6 @@ public class FootView extends AppCompatImageView {
     }
 
     private void init() {
-        this.setBackgroundColor(Color.WHITE);
         mSvgParser = new SvgPathParser();
     }
 

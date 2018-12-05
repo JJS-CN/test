@@ -16,16 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".recyclerview.RecyActivity">
-
         </activity>
         <activity android:name=".chart.ChartActivity">
-
         </activity>
         <activity android:name=".other.OtherActivity">
-
         </activity>
         <activity android:name=".camera.CameraActivity">
-
         </activity>
         <activity android:name=".LauncherActivity">
             <intent-filter>
@@ -36,9 +32,12 @@
         </activity>
         <activity android:name=".expandable.MultisActivity"/>
         <activity
-            android:name=".recyclerview.ChannelGuideActivity"
+            android:name=".recyclerview.excel.ChannelGuideActivity"
             android:screenOrientation="landscape"/>
         <activity android:name=".BaseActivity"/>
+        <activity android:name=".recyclerview.other.ListActivity"/>
+        <activity android:name=".gradient.QRGradientActivity">
+        </activity>
     </application>
 
 </manifest>
