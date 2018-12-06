@@ -21,19 +21,19 @@ public class ChartActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
 
-        SportsChart mSpChart = findViewById(R.id.c);
-        List<SportsChart.ChartEntity> mSpList = new ArrayList<>();
+        SportsChartDemo mSpChart = findViewById(R.id.c);
+        List<SportsChartDemo.ChartEntity> mSpList = new ArrayList<>();
         for (int i = 0; i < 31; i++) {
-            mSpList.add(new SportsChart.ChartEntity(new Random().nextInt(10), "测" + i));
+            mSpList.add(new SportsChartDemo.ChartEntity(new Random().nextInt(10), "测" + i));
         }
-        mSpChart.setListener(new SportsChart.OnLeftTextChangeListener() {
+        mSpChart.setListener(new SportsChartDemo.OnLeftTextChangeListener() {
             @Override
             public String onChange(int value) {
                 return value + " km";
             }
         });
         mSpChart.setEntities(mSpList);
-        mSpChart.setLeftMoveing(20);
+       // mSpChart.setLeftMoveing(20);
 
         RunBarChart mBarChart = findViewById(R.id.bar);
         List<RunBarChart.ChartEntity> mbarList = new ArrayList<>();

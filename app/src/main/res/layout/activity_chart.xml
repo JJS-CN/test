@@ -5,7 +5,6 @@
               android:orientation="vertical">
 
     <ScrollView
-        android:fillViewport="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -14,21 +13,31 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.example.admin.test.chart.SportsChart
-                android:id="@+id/c"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#eeeeee"/>
+                android:layout_height="800dp"
+                android:orientation="vertical">
+                <com.example.admin.test.chart.ClockView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-            <com.example.admin.test.chart.RunBarChart
-                android:id="@+id/bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
 
-            <com.example.admin.test.chart.DurableChart
-                android:id="@+id/durable"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                <com.example.admin.test.chart.SportsChartDemo
+                    android:id="@+id/c"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:background="#eeeeee"/>
+
+                <com.example.admin.test.chart.RunBarChart
+                    android:id="@+id/bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <com.example.admin.test.chart.DurableChart
+                    android:id="@+id/durable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

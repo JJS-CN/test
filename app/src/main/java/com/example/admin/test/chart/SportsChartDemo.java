@@ -37,6 +37,7 @@ import java.util.List;
  */
 
 public class SportsChartDemo extends View {
+    private static final String TAG = "SportsChartDemo";
     private float minHeight = 165;//dp
     private TextPaint mTextPaint;//文本画笔
     private Paint mPaint;//边线画笔
@@ -339,6 +340,7 @@ public class SportsChartDemo extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 dx = new int[]{(int) event.getX(), (int) event.getY()};
@@ -375,7 +377,7 @@ public class SportsChartDemo extends View {
             default:
                 return super.onTouchEvent(event);
         }
-        return true;
+        return false;
     }
 
     private void initOrResetVelocityTracker() {

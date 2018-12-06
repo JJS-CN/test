@@ -10,6 +10,7 @@ import android.graphics.DashPathEffect;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.Shader;
 import android.graphics.drawable.GradientDrawable;
@@ -18,6 +19,7 @@ import android.support.annotation.Nullable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
@@ -103,6 +105,9 @@ public class SportsChart extends View {
         //  mXLineDrawable.setColors(new int[]{mStartColor, mEndColor});
     }
 
+    Bitmap mBitmap;
+    Canvas mCanvas;
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -113,12 +118,18 @@ public class SportsChart extends View {
             //右边界限制
             mLeftMoveing = (int) (mChartRect.right - getWidth() + dp2px(15));
         }
-        drawLineX(canvas);
-        drawLineY(canvas);
-        drawAxisX(canvas);
-        drawAxisY(canvas);
-        drawPolyLine(canvas);
-        drawMarker(canvas);
+        if (mBitmap == null) {
+            mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+            mCanvas = new Canvas(mBitmap);
+            mCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+            drawLineX(mCanvas);
+            drawLineY(mCanvas);
+            drawAxisX(mCanvas);
+            drawAxisY(mCanvas);
+            drawPolyLine(mCanvas);
+            drawMarker(mCanvas);
+        }
+        canvas.drawBitmap(mBitmap, -mLeftMoveing, 0, mPaint);
     }
 
     private void drawLineX(Canvas canvas) {
@@ -374,7 +385,10 @@ public class SportsChart extends View {
             default:
                 return super.onTouchEvent(event);
         }
-        return true;
+        if (!(Math.abs(event.getX() - dx[0]) > Math.abs(event.getY() - dx[1]))) {
+            Log.e("touch", Math.abs(event.getX() - dx[0]) + "===" + event.getY()+"-" + dx[1]);
+        }
+        return Math.abs(event.getX() - dx[0])+30 > Math.abs(event.getY() - dx[1]) || dx[1] == 0 ? true : super.onTouchEvent(event);
     }
 
     private void initOrResetVelocityTracker() {
